@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package test;
+option go_package = "github.com/nutmeglabs/banda/gen/idl/extensions/protoc-gen-trans/test";
+
+import "google/protobuf/wrappers.proto";
+
+import "idl/extensions/extensions.proto";
+
+message TestMessage1 {
+  message NestedMessage { string name1 = 1 [ (extensions.translated) = true ]; }
+
+  string id = 1;
+  string name1 = 2 [ (extensions.translated) = true ];
+  string name2 = 3;
+  string name3 = 4 [ (extensions.translated) = true ];
+  repeated string array1 = 5 [ (extensions.translated) = true ];
+
+  google.protobuf.Int32Value wrapped_type = 11;
+
+  TestMessage2 msg1 = 6;
+
+  NestedMessage msg2 = 7;
+
+  map<string, string> test_map = 8;
+
+  map <string, TestMessage3> message_map = 9;
+}
+
+message TestMessage2 {
+  string name1 = 1 [ (extensions.translated) = true ];
+  string name2 = 2;
+  string name3 = 3 [ (extensions.translated) = true ];
+
+  repeated string array1 = 4 [ (extensions.translated) = true ];
+
+  repeated TestMessage2 recursive_msg_array1 = 5;
+}
+
+message TestMessage3 {
+  string name1 = 1 [ (extensions.translated) = true ];
+  string name2 = 2;
+}
